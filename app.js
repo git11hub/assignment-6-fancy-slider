@@ -70,9 +70,6 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
 
   // create carousel-indicators
-  // create carousel-indicators
-  // create carousel-indicators
-  // create carousel-indicators
 
   indicatorContainer.innerHTML = '';
 
