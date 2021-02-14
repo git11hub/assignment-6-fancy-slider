@@ -4,9 +4,9 @@ const galleryHeader = document.querySelector('.gallery-header');
 const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
+const indicatorContainer = document.getElementById('indicators');
 // selected image 
 let sliders = [];
-
 
 // If this key doesn't work
 // Find the name in the url and go to their website
@@ -14,7 +14,7 @@ let sliders = [];
 const KEY = '15674931-a9d714b6e9d654524df198e00&q';
 
 // show images 
-const showImages = (images) => {  
+const showImages = (images) => {
   imagesArea.style.display = 'block';
   gallery.innerHTML = '';
   // show gallery title
@@ -23,16 +23,16 @@ const showImages = (images) => {
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
     div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
-    gallery.appendChild(div)    
+    gallery.appendChild(div)
   })
   toggleSpinner();
 }
 
-const getImages = (query) => {  
+const getImages = (query) => {
   fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
     .then(response => response.json())
     .then(data => showImages(data.hits))
-    .catch(err => console.log(err))    
+    .catch(err => console.log(err))
 }
 
 let slideIndex = 0;
@@ -64,11 +64,27 @@ const createSlider = () => {
   prevNext.className = "prev-next d-flex w-100 justify-content-between align-items-center";
   prevNext.innerHTML = ` 
   <span class="prev" onclick="changeItem(-1)"><i class="fas fa-chevron-left"></i></span>
-  <span class="next" onclick="changeItem(1)"><i class="fas fa-chevron-right"></i></span>
+  <span class="next" onclick="changeItem(1)"><i class="fas fa-chevron-right"></i></span>  
   `;
-
   sliderContainer.appendChild(prevNext)
   document.querySelector('.main').style.display = 'block';
+
+  // create carousel-indicators
+  // create carousel-indicators
+  // create carousel-indicators
+  // create carousel-indicators
+
+  indicatorContainer.innerHTML = '';
+
+  sliders.forEach(dot => {
+    let indicatorDot = document.createElement('div')
+    indicatorDot.className = "dots d-flex mt-2 w-100 justify-content-center align-items-center bg-light";
+    indicatorDot.innerHTML = `
+    <span class="dot" onclick="changeItem(1)"></span>
+      `;
+    indicatorContainer.appendChild(indicatorDot)
+  })
+
   // hide image aria
   imagesArea.style.display = 'none';
   let customTime = document.getElementById('duration').value;
@@ -127,12 +143,12 @@ document.getElementById("search")
     }
   })
 
-searchBtn.addEventListener('click', function () {   
+searchBtn.addEventListener('click', function () {
   toggleSpinner();
   document.querySelector('.main').style.display = 'none';
   clearInterval(timer);
   const search = document.getElementById('search');
-  getImages(search.value)  
+  getImages(search.value)
   sliders.length = 0;
 })
 
@@ -143,8 +159,7 @@ sliderBtn.addEventListener('click', function () {
 // Toggle 
 const toggleSpinner = () => {
   const spinner = document.getElementById("loading-spinner");
-  
-  spinner.classList.toggle('d-md-none');
 
+  spinner.classList.toggle('d-md-none');
 }
 
