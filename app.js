@@ -71,18 +71,17 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
 
   // create carousel-indicators
-
   indicatorContainer.innerHTML = '';
 
   let indicatorDot = document.createElement('div');
   indicatorDot.className = "dots d-flex mt-2 w-100 justify-content-center align-items-center bg-light";
   indicatorDot.innerHTML = '';
   sliders.forEach(dot => {
-       let dotIndicator = document.createElement('ul'); 
-       dotIndicator.innerHTML = `<li>
+    let dotIndicator = document.createElement('ul');
+    dotIndicator.innerHTML = `<li>
     <span class="dot" onclick="changeItem(1)"></span></li>
       `;
-      indicatorDot.appendChild(dotIndicator)    
+    indicatorDot.appendChild(dotIndicator)
   })
   indicatorContainer.appendChild(indicatorDot)
 
@@ -94,7 +93,6 @@ const createSlider = () => {
   }
   const duration = customTime || 1000;
 
-  //  if else for negative time
   sliders.forEach(slide => {
     let item = document.createElement('div')
     item.className = "slider-item";
@@ -136,7 +134,8 @@ const changeSlide = (index) => {
 
   items[index].style.display = "block"
 }
-// Enter key here
+
+// Search by Enter key
 document.getElementById("search")
   .addEventListener("keypress", function (event) {
     if (event.key === 'Enter') {
@@ -157,7 +156,7 @@ sliderBtn.addEventListener('click', function () {
   createSlider()
 })
 
-// Toggle 
+// Toggle spinner
 const toggleSpinner = () => {
   const spinner = document.getElementById("loading-spinner");
 
