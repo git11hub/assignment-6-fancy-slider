@@ -70,7 +70,11 @@ const createSlider = () => {
   document.querySelector('.main').style.display = 'block';
   // hide image aria
   imagesArea.style.display = 'none';
-  const duration = document.getElementById('duration').value || 1000;
+  let customTime = document.getElementById('duration').value;
+  if (customTime<0) {
+    customTime = 1000;
+  }
+  const duration = customTime || 1000;
   
   //  if else for negative time 
   
