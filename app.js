@@ -5,6 +5,7 @@ const searchBtn = document.getElementById('search-btn');
 const sliderBtn = document.getElementById('create-slider');
 const sliderContainer = document.getElementById('sliders');
 const indicatorContainer = document.getElementById('indicators');
+// indicatorContainer.className = "dots d-flex mt-2 w-100 justify-content-center align-items-center bg-light";
 // selected image 
 let sliders = [];
 
@@ -73,14 +74,17 @@ const createSlider = () => {
 
   indicatorContainer.innerHTML = '';
 
+  let indicatorDot = document.createElement('div');
+  indicatorDot.className = "dots d-flex mt-2 w-100 justify-content-center align-items-center bg-light";
+  indicatorDot.innerHTML = '';
   sliders.forEach(dot => {
-    let indicatorDot = document.createElement('div')
-    indicatorDot.className = "dots d-flex mt-2 w-100 justify-content-center align-items-center bg-light";
-    indicatorDot.innerHTML = `
-    <span class="dot" onclick="changeItem(1)"></span>
+       let dotIndicator = document.createElement('ul'); 
+       dotIndicator.innerHTML = `<li>
+    <span class="dot" onclick="changeItem(1)"></span></li>
       `;
-    indicatorContainer.appendChild(indicatorDot)
+      indicatorDot.appendChild(dotIndicator)    
   })
+  indicatorContainer.appendChild(indicatorDot)
 
   // hide image aria
   imagesArea.style.display = 'none';
