@@ -22,31 +22,34 @@ const showImages = (images) => {
   images.forEach(image => {
     let div = document.createElement('div');
     div.className = 'col-lg-3 col-md-4 col-xs-6 img-item mb-2';
-    div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}") src="${image.webformatURL}" alt="${image.tags}">`;
+    div.innerHTML = ` <img class="img-fluid img-thumbnail" onclick=selectItem(event,"${image.webformatURL}");toggle() src="${image.webformatURL}" alt="${image.tags}">`;
     gallery.appendChild(div)
   })
-
 }
 
 const getImages = (query) => {
-  fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)
+  fetch(`https://pixabay.com/api/?key=${KEY}=${query}&image_type=photo&pretty=true`)  
     .then(response => response.json())
     .then(data => showImages(data.hits))
-    .catch(err => console.log(err))
+    .catch(err => console.log(err))    
 }
 
 let slideIndex = 0;
+// select and deselect area 
 const selectItem = (event, img) => {
   let element = event.target;
-  element.classList.add('added');
-
+  element.classList.add('added');   
+   
   let item = sliders.indexOf(img);
   if (item === -1) {
-    sliders.push(img);
+    sliders.push(img);    
+    
   } else {
-    alert('Hey, Already added !')
+    sliders.splice(item,1);
+    element.classList.remove('added');    
   }
 }
+
 var timer
 const createSlider = () => {
   // check slider image length
@@ -68,10 +71,9 @@ const createSlider = () => {
   // hide image aria
   imagesArea.style.display = 'none';
   const duration = document.getElementById('duration').value || 1000;
+  
   //  if else for negative time 
-  if (duration < 0) {
-    alert("Please provide a valid number")
-  } else {
+  
     sliders.forEach(slide => {
       let item = document.createElement('div')
       item.className = "slider-item";
@@ -85,11 +87,8 @@ const createSlider = () => {
       slideIndex++;
       changeSlide(slideIndex);
     }, duration);
-  }
+  
 }
-
-
-
 
 // change slider index 
 const changeItem = index => {
@@ -135,3 +134,5 @@ searchBtn.addEventListener('click', function () {
 sliderBtn.addEventListener('click', function () {
   createSlider()
 })
+
+
